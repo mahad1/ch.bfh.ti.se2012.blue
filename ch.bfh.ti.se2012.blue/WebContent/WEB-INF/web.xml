@@ -9,12 +9,12 @@
 	</context-param>
 	<servlet>
 		<servlet-name>Ch_bfh_ti_se2012_blue Application</servlet-name>
-		<servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
+		<servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
 		<init-param>
 			<description>
-			Vaadin UI class to use</description>
-			<param-name>UI</param-name>
-			<param-value>com.example.ch_bfh_ti_se2012_blue.Ch_bfh_ti_se2012_blueUI</param-value>
+			Vaadin application class to start</description>
+			<param-name>application</param-name>
+			<param-value>com.example.ch_bfh_ti_se2012_blue.Ch_bfh_ti_se2012_blueApplication</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
