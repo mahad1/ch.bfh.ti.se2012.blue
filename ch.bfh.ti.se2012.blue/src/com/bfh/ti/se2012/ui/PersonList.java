@@ -1,13 +1,13 @@
 package com.bfh.ti.se2012.ui;
 
-import com.bfh.ti.se2012.Se_1Application;
+import com.bfh.ti.se2012.StartApplication;
 import com.bfh.ti.se2012.data.PersonContainer;
 
 import com.vaadin.data.Property;
 import com.vaadin.ui.Table;
 
 public class PersonList extends Table {
-     public PersonList(Se_1Application app) {
+     public PersonList(StartApplication app) {
     	 setSizeFull();
          setContainerDataSource(app.getDataSource());
          setVisibleColumns(PersonContainer.NATURAL_COL_ORDER);

@@ -11,11 +11,13 @@ import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.sqlcontainer.connection.JDBCConnectionPool;
 import com.vaadin.data.util.sqlcontainer.connection.SimpleJDBCConnectionPool;
+import com.vaadin.terminal.Sizeable;
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
-public class Se_1Application extends Application implements Button.ClickListener,Property.ValueChangeListener{
+public class StartApplication extends Application implements Button.ClickListener,Property.ValueChangeListener{
     /**
      * 
      */
@@ -49,7 +51,8 @@ public class Se_1Application extends Application implements Button.ClickListener
     }
 
     private void buildMainLayout() throws IllegalArgumentException, NullPointerException, SQLException {
-        setMainWindow(new Window("Address Book Demo application"));
+    	Window startWindow = new Window("medApp");
+        setMainWindow(startWindow);
         
         newContact = new Button("Add contact");
         search = new Button("Search");
@@ -57,36 +60,39 @@ public class Se_1Application extends Application implements Button.ClickListener
         help = new Button("Help");
         
         NavigationTree tree = new NavigationTree();
-        horizontalSplit = new HorizontalSplitPanel();
+        //horizontalSplit = new HorizontalSplitPanel();
         
-        VerticalLayout layout = new VerticalLayout();
+        VerticalSplitPanel layout = new VerticalSplitPanel();
         layout.setSizeFull();
-               
-        layout.addComponent(createToolbar());
-        layout.addComponent(horizontalSplit);
+        layout.setLocked(true);
+        
+        // Set the position of the splitter as percentage
+        layout.setSplitPosition(100, Sizeable.UNITS_PIXELS);
+        
+        layout.setFirstComponent(createHeader());
+        layout.setSecondComponent(createToolbar());
+        //layout.addComponent(horizontalSplit);
 
-       /* Allocate all available extra space to the horizontal split panel */
-
-       layout.setExpandRatio(horizontalSplit, 1);
-       /* Set the initial split position so we can have a 200 pixel menu to the left */
-
-       horizontalSplit.setSplitPosition(200, SplitPanel.UNITS_PIXELS);
-		
-       horizontalSplit.setFirstComponent(tree);
-       
-       //Random Daten werden generiert.
-       dataSource = PersonContainer.createWithTestData();
     		   
-       setMainComponent(getListView());
+       //setMainComponent(getListView());
        getMainWindow().setContent(layout);
-       
-       
-       getMainWindow().addWindow(new LoginWindow());
+       startWindow.setWidth(100,Sizeable.UNITS_PIXELS);
+       startWindow.setHeight(100,Sizeable.UNITS_PIXELS);
+       startWindow.center();
+       layout.setSizeFull();
+       setTheme("reindeer");
+       //getMainWindow().addWindow(new LoginWindow());
        
       
     }
    
-    public PersonContainer getDataSource() {
+    private VerticalLayout createHeader() {
+    	VerticalLayout header = new VerticalLayout();
+    	//header.addComponent(new Embedded("",new ThemeResource("img/Logo_MedApp.jpg")));
+		return header;
+	}
+
+	public PersonContainer getDataSource() {
         return dataSource;
    }
     
