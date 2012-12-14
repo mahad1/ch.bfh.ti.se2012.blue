@@ -16,8 +16,8 @@ public class HomeScreen extends AbsoluteLayout{
 	public HomeScreen(){
 		
 		setImmediate(false);
-		setWidth("768px");
-		setHeight("1024px");
+		setWidth("1024");
+		//setHeight("768px");
 		setMargin(false);
 		
 		// Patient_Logo
@@ -38,7 +38,7 @@ public class HomeScreen extends AbsoluteLayout{
 		Medi_Logo.setSource(new ThemeResource("img/Medi_Logo.png"));
 		Medi_Logo.setType(1);
 		Medi_Logo.setMimeType("image/png");
-		addComponent(Medi_Logo, "top:141.0px;left:0.0px;");
+		addComponent(Medi_Logo, "top:141.0px;left:264.0px;");
 		
 		// Settings_Logo
 		Settings_Logo = new Embedded();
@@ -60,13 +60,7 @@ public class HomeScreen extends AbsoluteLayout{
 		LogOut_Logo.setMimeType("image/png");
 		addComponent(LogOut_Logo, "top:429.0px;left:264.0px;");
 		
-		// MEDAPP_Titel
-		MEDAPP_Titel = new Label();
-		MEDAPP_Titel.setImmediate(false);
-		MEDAPP_Titel.setWidth("100.0%");
-		MEDAPP_Titel.setHeight("60px");
-		MEDAPP_Titel.setValue("MEDAPP");
-		addComponent(MEDAPP_Titel,"top:51.0px;right:53.0px;left:53.0px;");
+		
 	}
 
 }
