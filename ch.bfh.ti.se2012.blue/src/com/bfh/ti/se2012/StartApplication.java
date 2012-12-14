@@ -70,7 +70,7 @@ public class StartApplication extends Application implements Button.ClickListene
         layout.setSplitPosition(100, Sizeable.UNITS_PIXELS);
         
         layout.setFirstComponent(createHeader());
-        layout.setSecondComponent(createToolbar());
+        layout.setSecondComponent(new HomeScreen());
         //layout.addComponent(horizontalSplit);
 
     		   
@@ -88,7 +88,7 @@ public class StartApplication extends Application implements Button.ClickListene
    
     private VerticalLayout createHeader() {
     	VerticalLayout header = new VerticalLayout();
-    	//header.addComponent(new Embedded("",new ThemeResource("img/Logo_MedApp.jpg")));
+    	header.addComponent(new Embedded("",new ThemeResource("img/Logo_MedApp.jpg")));
 		return header;
 	}
 
