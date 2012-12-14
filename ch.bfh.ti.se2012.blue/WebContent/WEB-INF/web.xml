@@ -19,7 +19,7 @@
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>Se_1 Application</servlet-name>
+		<servlet-name>Ch_bfh_ti_se2012_blue Application</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
