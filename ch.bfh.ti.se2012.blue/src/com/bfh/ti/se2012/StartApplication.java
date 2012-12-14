@@ -67,7 +67,7 @@ public class StartApplication extends Application implements Button.ClickListene
         layout.setLocked(true);
         
         // Set the position of the splitter as percentage
-        layout.setSplitPosition(100, Sizeable.UNITS_PIXELS);
+        layout.setSplitPosition(150, Sizeable.UNITS_PIXELS);
         
         layout.setFirstComponent(createHeader());
         layout.setSecondComponent(new HomeScreen());
