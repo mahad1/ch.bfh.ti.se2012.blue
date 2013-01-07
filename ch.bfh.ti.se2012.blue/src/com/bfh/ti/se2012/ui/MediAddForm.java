@@ -1,4 +1,4 @@
-package com.bfh.ti.se2012;
+package com.bfh.ti.se2012.ui;
 
 
 import com.vaadin.data.Property;

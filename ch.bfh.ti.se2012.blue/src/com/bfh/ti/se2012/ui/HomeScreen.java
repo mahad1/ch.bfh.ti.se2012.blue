@@ -1,6 +1,5 @@
 package com.bfh.ti.se2012.ui;
 import com.bfh.ti.se2012.StartApplication;
-import com.bfh.ti.se2012.TableGenerator;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
