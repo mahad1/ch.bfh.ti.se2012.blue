@@ -2,168 +2,85 @@
 
 import java.sql.*;
 
-import com.bfh.ti.se2012.data.*;
-import com.bfh.ti.se2012.data.Connection;
 import com.bfh.ti.se2012.ui.*;
 import com.vaadin.Application;
-import com.vaadin.data.Item;
-import com.vaadin.data.Property;
-import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.util.sqlcontainer.connection.JDBCConnectionPool;
-import com.vaadin.data.util.sqlcontainer.connection.SimpleJDBCConnectionPool;
-import com.vaadin.terminal.Sizeable;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.*;
-import com.vaadin.ui.Button.ClickEvent;
-import com.vaadin.ui.Button.ClickListener;
 
-public class StartApplication extends Application implements Button.ClickListener,Property.ValueChangeListener{
+
+public class StartApplication extends Application{
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * 
      */
-    private Button newContact;
-    private Button search;
-    private Button share;
-    private Button help;
-    private HorizontalSplitPanel horizontalSplit;
-    private ListView listView;
-    private PersonList personList;
-    private PersonForm personForm;
-    private PersonContainer dataSource;
-    private SearchView searchView;
-    private HelpWindow helpWindow;
+
+    public static GridLayout layout;
    
     
     @Override
     public void init() {
-       try {
-		buildMainLayout();
-	} catch (IllegalArgumentException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (NullPointerException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+	    try {
+			buildMainLayout();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NullPointerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     private void buildMainLayout() throws IllegalArgumentException, NullPointerException, SQLException {
-    	Window startWindow = new Window("medApp");
-        setMainWindow(startWindow);
+    	
+    	
+    	Window startWindow = new Window("Medicus App");
         
-        newContact = new Button("Add contact");
-        search = new Button("Search");
-        share = new Button("Share");
-        help = new Button("Help");
         
-        NavigationTree tree = new NavigationTree();
-        //horizontalSplit = new HorizontalSplitPanel();
+        this.setMainWindow(startWindow);
+        this.setTheme("medicus");
         
-        VerticalSplitPanel layout = new VerticalSplitPanel();
-        layout.setSizeFull();
-        layout.setLocked(true);
-        
-        // Set the position of the splitter as percentage
-        layout.setSplitPosition(150, Sizeable.UNITS_PIXELS);
-        
-        layout.setFirstComponent(createHeader());
-        layout.setSecondComponent(new HomeScreen());
-        //layout.addComponent(horizontalSplit);
+        //Grundstruktur 
+ 		layout = new GridLayout();
+ 		layout.setImmediate(false);
+ 		layout.setWidth("768px");
+ 		layout.setMargin(false);
+ 		layout.setRows(2);
+ 		
+    
+        layout.addComponent(createHeader(),0,0);
+        setView(null);
 
-    		   
-       //setMainComponent(getListView());
        getMainWindow().setContent(layout);
-       startWindow.setWidth(100,Sizeable.UNITS_PIXELS);
-       startWindow.setHeight(100,Sizeable.UNITS_PIXELS);
-       startWindow.center();
-       layout.setSizeFull();
-       setTheme("reindeer");
-       //getMainWindow().addWindow(new LoginWindow());
+       
+       getMainWindow().addWindow(new LoginWindow());
        
       
     }
    
-    private VerticalLayout createHeader() {
-    	VerticalLayout header = new VerticalLayout();
-    	header.addComponent(new Embedded("",new ThemeResource("img/Logo_MedApp.jpg")));
+    private GridLayout createHeader() {
+    	GridLayout header = new GridLayout(2,1);
+
+    	Embedded em = new Embedded(null, new ThemeResource("img/Logo_MedApp.jpg"));
+    	header.addComponent(em);
+    	header.setComponentAlignment(em, Alignment.MIDDLE_RIGHT);
+    	header.setHeight("150px");
+    	header.setStyleName("header");
+    	//header.setColumnExpandRatio(em, 1);
 		return header;
 	}
-
-	public PersonContainer getDataSource() {
-        return dataSource;
-   }
     
-    
-   //VIEWS
-    private ListView getListView() {
-        if (listView == null) {
-        	personList = new PersonList(this);
-            personForm = new PersonForm();
-            listView = new ListView(personList, personForm);
-        }
-        return listView;
-    }
-    
-    private SearchView getSearchView() {
-         if (searchView == null) {
-             searchView = new SearchView(this);
-         }
-         return searchView;
-     }
-    
-    
-    //Toolbar wird zusammengestellt
-    public HorizontalLayout createToolbar() {
-
-        HorizontalLayout lo = new HorizontalLayout();
-         lo.addComponent(newContact);
-         lo.addComponent(search);
-         lo.addComponent(share);
-         lo.addComponent(help);
-         search.addListener((Button.ClickListener) this);
-         help.addListener((Button.ClickListener) this);
-        return lo;
-
-    }
-    private HelpWindow getHelpWindow() {
-        if (helpWindow == null) {
-            helpWindow = new HelpWindow();
-        }
-        return helpWindow;
-    }
-
-    
-    public void buttonClick(ClickEvent event){
-    	final Button source = event.getButton();
-    	 if (source == search) {
-             showSearchView();
-         } else if (source == help) {
-             showHelpWindow();
-          }
-    }  
-    
-    private void showHelpWindow() {
-        getMainWindow().addWindow(getHelpWindow());
-    }
-    private void showSearchView() {
-        setMainComponent(getSearchView());
-    }
-    
-    private void setMainComponent(Component c) {
-        horizontalSplit.setSecondComponent(c);
-    }
-
-    public void valueChange(ValueChangeEvent event) {
-        Property property = event.getProperty();
-        if (property == personList) {
-            Item item = personList.getItem(personList.getValue());
-            if (item != personForm.getItemDataSource()) {
-                personForm.setItemDataSource(item);
-            }
-        }
+    public static void setView(Component com){
+    	if(com!=null){
+    		layout.addComponent(com,0,1);
+    	}else{
+    		layout.addComponent(new HomeScreen(),0,1);
+    	}
     }
 
 

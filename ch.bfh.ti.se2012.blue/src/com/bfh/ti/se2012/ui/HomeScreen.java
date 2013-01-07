@@ -1,10 +1,15 @@
 package com.bfh.ti.se2012.ui;
+import com.bfh.ti.se2012.StartApplication;
+import com.bfh.ti.se2012.TableGenerator;
 import com.vaadin.terminal.ThemeResource;
-import com.vaadin.ui.AbsoluteLayout;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Embedded;
+import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.Label;
 
-public class HomeScreen extends AbsoluteLayout{
+public class HomeScreen extends GridLayout{
 	
 	
 	Embedded Patient_Logo = null;
@@ -15,20 +20,28 @@ public class HomeScreen extends AbsoluteLayout{
 	
 	public HomeScreen(){
 		
-		setImmediate(false);
-		setWidth("1024");
-		setHeight("768px");
-		setMargin(false);
+		this.setRows(2);
+		this.setColumns(2);
+		this.setImmediate(false);
+		this.setWidth("768");
+		this.setHeight("600");
+		this.setMargin(false);
+		this.setStyleName("test");
 		
-		// Patient_Logo
-		Patient_Logo = new Embedded();
-		Patient_Logo.setImmediate(false);
-		Patient_Logo.setWidth("256px");
-		Patient_Logo.setHeight("256px");
-		Patient_Logo.setSource(new ThemeResource("img/medical_record.png"));
-		Patient_Logo.setType(1);
-		Patient_Logo.setMimeType("image/png");
-		addComponent(Patient_Logo, "top:142.0px;left:72.0px;");
+		Button btnPatient = new Button(null);
+		btnPatient.setIcon(new ThemeResource("img/medical_record.png"));
+		btnPatient.setImmediate(false);
+		btnPatient.setWidth("256px");
+		btnPatient.setHeight("256px");
+		btnPatient.addStyleName("nobackground");
+		addComponent(btnPatient);
+		btnPatient.addListener(new ClickListener() {
+            public void buttonClick(ClickEvent event) {
+            	removeAllComponents();
+            	StartApplication.setView(new BasisForm());
+            }
+        });
+		
 		
 		// Medi_Logo
 		Medi_Logo = new Embedded();
@@ -38,7 +51,7 @@ public class HomeScreen extends AbsoluteLayout{
 		Medi_Logo.setSource(new ThemeResource("img/prescription_drugs.png"));
 		Medi_Logo.setType(1);
 		Medi_Logo.setMimeType("image/png");
-		addComponent(Medi_Logo, "top:141.0px;left:360.0px;");
+		addComponent(Medi_Logo);
 		
 		// Settings_Logo
 		Settings_Logo = new Embedded();
@@ -48,7 +61,7 @@ public class HomeScreen extends AbsoluteLayout{
 		Settings_Logo.setSource(new ThemeResource("img/settings.png"));
 		Settings_Logo.setType(1);
 		Settings_Logo.setMimeType("image/png");
-		addComponent(Settings_Logo, "top:429.0px;left:60.0px;");
+		addComponent(Settings_Logo);
 		
 		// LogOut_Logo
 		LogOut_Logo = new Embedded();
@@ -58,7 +71,7 @@ public class HomeScreen extends AbsoluteLayout{
 		LogOut_Logo.setSource(new ThemeResource("img/shutdown.png"));
 		LogOut_Logo.setType(1);
 		LogOut_Logo.setMimeType("image/png");
-		addComponent(LogOut_Logo, "top:429.0px;left:360.0px;");
+		addComponent(LogOut_Logo);
 		
 		
 	}

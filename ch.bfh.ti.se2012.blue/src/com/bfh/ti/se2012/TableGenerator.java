@@ -14,7 +14,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
-public class TableGenerator extends Application {
+public class TableGenerator extends CustomComponent {
 
     private static String[] fields = { "First Name", "Last Name", "Company",
             "Mobile Phone", "Work Phone", "Home Phone", "Work Email",

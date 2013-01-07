@@ -1,5 +1,6 @@
 package com.bfh.ti.se2012.ui;
 
+import com.bfh.ti.se2012.data.SqlLogin;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.LoginForm;
 import com.vaadin.ui.Window;
@@ -12,9 +13,9 @@ public class LoginWindow  extends Window{
         
         addComponent(new Label("Bitte melden Sie sich an:", Label.CONTENT_XHTML));
         setModal(true);
-        setWidth("50%");
-        center();
-        
+        setWidth("400px");
+        this.setPositionX(150);
+        this.setPositionY(250);
         
 		LoginForm loginForm_1 = new LoginForm();
 		loginForm_1.setStyleName("v-loginform");
@@ -27,17 +28,12 @@ public class LoginWindow  extends Window{
                 String pw = event.getLoginParameter("password");
                 String username = event.getLoginParameter("username");
                 
-                if (pw.equals("1234")) {
-                    //setUser(username);
-                    //currentUser.setValue(username);
-                    getWindow().showNotification(
-                            "Logged in user: " + username);
-                   // getWindow().replaceComponent(loginForm_1,maiPanel);
-                    //el.expand(mainPanel);
-                } else {
-                    //getMainWindow().showNotification(
-                    //        "Wrong password. Hint, try '1234' ",
-                    //       Notification.TYPE_WARNING_MESSAGE);
+                SqlLogin checkLogin = new SqlLogin();
+                if(checkLogin.validateLogin(username, pw)&&pw!=""&&username!=""){
+                	getWindow().showNotification("Logged in user: " + username);
+                	getApplication().getMainWindow().removeWindow(getWindow());
+                }else{
+                	getWindow().showNotification("Wrong user/password. Try again.",Notification.TYPE_WARNING_MESSAGE);
                 }
             }
         });
