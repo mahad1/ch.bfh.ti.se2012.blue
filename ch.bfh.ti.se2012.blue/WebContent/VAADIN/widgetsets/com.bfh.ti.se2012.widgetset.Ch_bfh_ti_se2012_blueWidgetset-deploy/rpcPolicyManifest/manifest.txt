@@ -1,0 +1,2 @@
+# Module com.bfh.ti.se2012.widgetset.Ch_bfh_ti_se2012_blueWidgetset
+# RPC service class, partial path of RPC policy file
