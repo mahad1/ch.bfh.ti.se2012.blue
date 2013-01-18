@@ -1,87 +1,85 @@
-  package com.bfh.ti.se2012;
+/**
+ * The class StartApplication creates the main thread
+ * @version 1.0
+ * @author Team Blue
+ *
+ */
+package com.bfh.ti.se2012;
 
-import java.sql.*;
-
-import com.bfh.ti.se2012.ui.*;
+import com.bfh.ti.se2012.controller.UiHandler;
 import com.vaadin.Application;
-import com.vaadin.terminal.ThemeResource;
-import com.vaadin.ui.*;
+import com.vaadin.service.ApplicationContext;
+import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.Window;
 
 
-public class StartApplication extends Application{
-    /**
-	 * 
-	 */
+public class StartApplication extends Application  implements ApplicationContext.TransactionListener{
+	
+	
 	private static final long serialVersionUID = 1L;
-	/**
-     * 
-     */
+	protected static ThreadLocal<StartApplication> thisApplication = new ThreadLocal<StartApplication>();
+
+	
+	/*
+	 *  Set ThreadLocal application.
+	 *  @param StartApplication t	
+	 */
+	public static void setProject(StartApplication t) {
+		thisApplication.set(t);
+	}
+
+	/*
+	 *  Get ThreadLocal application.
+	 */
+	public static StartApplication getProject() {
+		return thisApplication.get();
+	}
 
     public static GridLayout layout;
-   
+    public static UiHandler ui;
     
     @Override
     public void init() {
-	    try {
-			buildMainLayout();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NullPointerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-
-    private void buildMainLayout() throws IllegalArgumentException, NullPointerException, SQLException {
     	
-    	
-    	Window startWindow = new Window("Medicus App");
-        
-        
-        this.setMainWindow(startWindow);
-        this.setTheme("medicus");
-        
-        //Grundstruktur 
- 		layout = new GridLayout();
- 		layout.setImmediate(false);
- 		layout.setWidth("768px");
- 		layout.setMargin(false);
- 		layout.setRows(2);
- 		
-    
-        layout.addComponent(createHeader(),0,0);
-        setView(null);
-
-       getMainWindow().setContent(layout);
-       
-       getMainWindow().addWindow(new LoginWindow());
-       
-      
+	    	setMainWindow(new Window("Medicus App"));
+	        this.setTheme("medicus");
+	        
+	        // Adds a TransactionListener for this class.
+			getContext().addTransactionListener(this);
+			
+			// UI Controller
+	        ui = new UiHandler(getMainWindow());
+	        
+	        // Register user change listener for UiHandler.
+			addListener(ui);
     }
    
-    private GridLayout createHeader() {
-    	GridLayout header = new GridLayout(2,1);
+	/*
+	 * Helper to return the uiHandler attached to a unique application.
+	 */
+	public static UiHandler getUiHandler() {
+		return thisApplication.get().ui;
+	}
 
-    	Embedded em = new Embedded(null, new ThemeResource("img/Logo_MedApp.jpg"));
-    	header.addComponent(em);
-    	header.setComponentAlignment(em, Alignment.MIDDLE_RIGHT);
-    	header.setHeight("150px");
-    	header.setStyleName("header");
-    	//header.setColumnExpandRatio(em, 1);
-		return header;
+	/*
+	 * For ThreadLocal pattern.
+	 */
+	public void transactionStart(Application application, Object transactionData) {
+
+		if (application == StartApplication.this) {
+			thisApplication.set(this);
+		}
+	}
+
+	/*
+	 * For ThreadLocal pattern, remove application reference
+	 */
+	public void transactionEnd(Application application, Object transactionData) {
+		if (application == StartApplication.this) {
+			thisApplication.set(null);
+		}
 	}
     
-    public static void setView(Component com){
-    	if(com!=null){
-    		layout.addComponent(com,0,1);
-    	}else{
-    		layout.addComponent(new HomeScreen(),0,1);
-    	}
-    }
 
 
 }

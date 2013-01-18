@@ -1,53 +1,63 @@
+/**
+ * The class SQLLogin is the Model Class for LoginView
+ * @version 1.0
+ * @author Team Blue
+ *
+ */
 package com.bfh.ti.se2012.data;
 
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class SqlLogin{
+public class SqlLogin implements Serializable{
 
      private Statement stmt;
      private ResultSet rs;
-     private SqlConnection conection;
+     private DatabaseConnection conection;
+     private String result = null;
 
+ 	/*
+ 	 * Constructor SQL LOGIN
+ 	 * Database Connection
+ 	 * 
+ 	 */
      public SqlLogin(){
-         conection = new SqlConnection();
+         conection = new DatabaseConnection();
          conection.connect();
          stmt = conection.getstatement();
          rs = conection.getresultset();
      }
 
-     private String result="";
-
+     // Read Passwort from User
      public String getpassword(String username) {
          try {
              String query = "SELECT loginPassword FROM LoginStaff WHERE loginUsername='"+ username + "'";
              rs = stmt.executeQuery(query);
              
              while (rs.next()) {
-                 // Loop through the result set
                  result = rs.getString(1);
              }
-             // Close the result set, statement and the connection
              rs.close();
 
          } catch (SQLException e) {
-             // TODO Auto-generated catch block
              e.printStackTrace();
          }
          conection.disconnect();
          return result;
      }
 
-     public boolean validateLogin(String username, String password) {
+     // Authenicate Methode with param Username and Passwort
+     // return User Object
+     public User Authenticate(String username, String password) {
          String password1 = getpassword(username);
-         System.out.println(password1);
          if (password1.equals(password)) {
-             return true;
+             return new User(username,username);
          } else
-             return false;
+             return null;
 
      }
 

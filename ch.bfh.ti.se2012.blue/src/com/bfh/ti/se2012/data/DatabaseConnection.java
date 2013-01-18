@@ -1,5 +1,12 @@
+/**
+ * The class DatabaseConnection is the main connection to the database
+ * @version 1.0
+ * @author Team Blue
+ *
+ */
 package com.bfh.ti.se2012.data;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,7 +14,7 @@ import java.sql.SQLException;
 import java.sql.SQLWarning;
 import java.sql.Statement;
 
-public class SqlConnection {
+public class DatabaseConnection implements Serializable{
 
      private Connection conn;
      private Statement stmt;

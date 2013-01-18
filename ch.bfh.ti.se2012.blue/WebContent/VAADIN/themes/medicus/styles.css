@@ -1,13 +1,71 @@
  @import "../reindeer/styles.css";
- 
-.v-menubar .v-menubar-menuitem {
-   cursor: pointer;
-   font-weight: bold;
-}
-#navigationTop{
 
+.v-button:focus {
+    background-position: 0 -216px;
+    background-image: url(img/button-sprites.png);
+    }
+
+.v-button:focus .v-button-wrap {
+    background-position: right -243px;
+    background-image: url(img/button-sprites.png);
+    }
+
+.v-button:active,
+.v-button.v-pressed {
+    background-position: 0 -270px;
+    background-image: url(img/button-sprites.png);
+    }
+
+.v-button:active .v-button-wrap,
+.v-button.v-pressed .v-button-wrap {
+    background-position: right -297px;
+    background-image: url(img/button-sprites.png);
+    }
+
+.v-button,
+.v-disabled.v-button {
+    height: 27px;
+    padding: 0 0 0 7px;
+    background: transparent url(img/button-sprites.png) 0 -162px;
+    cursor:pointer;
+    }
+
+.v-button-wrap,
+.v-disabled.v-button .v-button-wrap {
+    height: 22px;
+    background: transparent url(img/button-sprites.png) right -189px;
+    }
+
+.v-button-caption {
+    color: #393939;
+    }
+
+
+
+
+.v-button-navButton .v-button-wrap {
+	background-image: none;
+	background-color: #D11C1C;
 }
-.v-button, .v-disabled.v-button {
-background: none;
-border:none;
+.v-button-navButton .v-button-caption {
+	color: white;
+	text-shadow:none;
+}
+
+.v-button-submitButton .v-button-wrap {
+	height:40px;
+	background-image: none;
+	background-color: #D11C1C;
+}
+.v-button-submitButton .v-button-caption {
+	color: white;
+	text-shadow:none;
+}
+
+.v-caption .v-captiontext {
+	float: left;
+	overflow: hidden;
+	vertical-align: middle;
+	font-size:20px;
+	
 }
